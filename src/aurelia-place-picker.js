@@ -53,6 +53,7 @@ export class AureliaPlacePicker {
           self.location.lat = place.geometry.location.lat();
           self.location.lng = place.geometry.location.lng();
         }
+        this.event.publish('placePicker:place_changed', self.location);
       });
     });
   }

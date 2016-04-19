@@ -56,6 +56,10 @@ location = {
 }
 ```
 
+And fires an event:
+
+*   **placePicker:place_changed** with the location object as payload. 
+
 ## Problems
 
 If you try to use this together with the aurelia-google-maps plugin, you'll get an error:
