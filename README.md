@@ -3,7 +3,7 @@
 This aurelia plugin is a wrapper around the google.maps.places.autocomplete. It renders a searchbox and returns an object with the placename, latitude and longitude coordinates
 
 See the example: [here](http://github.com/Tseberechts/aurelia-place-picker-example);
-The inspiration:
+The inspiration: [here](http://blog.thecoderecipe.com/articles/aurelia/places/2015/12/06/aurelia-places-autocomplete.html);
 
 ## Installation
 

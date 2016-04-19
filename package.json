@@ -1,6 +1,6 @@
 {
   "name": "aurelia-place-picker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A place picker inspired by the 'Autocomplete places with Aurelia.io' blog by François Wouts",
   "keywords": [
     "aurelia",
