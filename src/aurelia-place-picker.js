@@ -1,22 +1,22 @@
 import {inject} from 'aurelia-dependency-injection';
 import {bindable, customElement} from 'aurelia-templating';
+import {EventAggregator} from 'aurelia-event-aggregator';
 
 import {Configure} from './configure';
 
 @customElement('place-picker')
-@inject(Element, Configure)
+@inject(Element, Configure, EventAggregator)
 
 export class AureliaPlacePicker {
   @bindable location;
   @bindable customClass;
 
   _scriptPromise = null;
-  _mapPromise = null;
-  _mapResolve = null;
 
-  constructor(element, config) {
+  constructor(element, config, eventAggregator) {
     this.element = element;
     this.config = config;
+    this.event = eventAggregator;
 
     if (!config.get('apiScript')) {
       console.error('No API script is defined.');
@@ -26,18 +26,23 @@ export class AureliaPlacePicker {
       console.error('No API key has been specified.');
     }
 
-    this.loadApiScript();
-
-    let self = this;
-    this._mapPromise = this._scriptPromise.then(() => {
-      return new Promise((resolve, reject) => {
-        // Register the the resolve method for _mapPromise
-        self._mapResolve = resolve;
-      });
-    });
+    if (config.get('getAPI')) {
+      this.loadApiScript();
+    }
   }
 
   attached() {
+    if (!this.config.get('getAPI')) {
+      this.event.subscribe(this.config.get('mapLoadedEvent'), (scriptPromise) => {
+        this._scriptPromise = scriptPromise;
+        this.initializeAutocomplete();
+      });
+    } else {
+      this.initializeAutocomplete();
+    }
+  }
+
+  initializeAutocomplete() {
     let self = this;
     this._scriptPromise.then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.input);

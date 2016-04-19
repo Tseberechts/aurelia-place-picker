@@ -17,7 +17,6 @@ Or for webpack:
 npm install aurelia-place-picker
 ```
 
----
 
 ## Usage
 
@@ -26,7 +25,9 @@ In your main.js:
 ```javascript
 .plugin('aurelia-place-picker', config => {
       config.options({
-      apiKey: '[YOUR API KEY HERE]'
+      apiKey: '[YOUR API KEY HERE]',          //Required
+      getAPI: true,                           //Optional, see 'Problems'
+      apiLoadedEvent: 'googlemap:api:loaded'  //Optional, see 'Problems'
     });
 ```
 
@@ -54,3 +55,16 @@ location = {
   lng: '98.7654'
 }
 ```
+
+## Problems
+
+If you try to use this together with the aurelia-google-maps plugin, you'll get an error:
+
+```
+You have included the Google Maps API multiple times on this page. This may cause unexpected errors.
+```
+
+If this is the case, you need to set the getAPI property to false and have to set a name for the apiLoadedEvent.
+At the time of writing, the aurelia-google-maps plugin will not fire an event, so this will not work. 
+I suggest you go to [My Fork](https://github.com/Tseberechts/aurelia-google-maps) and overwrite the dist folder in you node_modules. 
+Let's hope my pull request will get merged soon.
