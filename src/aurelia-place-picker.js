@@ -12,6 +12,7 @@ export class AureliaPlacePicker {
   @bindable customClass;
 
   _scriptPromise = null;
+  inputDisabled = true;
 
   constructor(element, config, eventAggregator) {
     this.element = element;
@@ -46,6 +47,7 @@ export class AureliaPlacePicker {
     let self = this;
     this._scriptPromise.then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.input);
+      this.inputDisabled = false;
       autocomplete.addListener('place_changed', () => {
         let place = autocomplete.getPlace();
         if (place.geometry) {
