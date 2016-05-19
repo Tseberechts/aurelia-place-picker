@@ -8,7 +8,7 @@ import {Configure} from './configure';
 @inject(Element, Configure, EventAggregator)
 
 export class AureliaPlacePicker {
-  @bindable location;
+  @bindable location = {};
   @bindable customClass;
 
   _scriptPromise = null;
