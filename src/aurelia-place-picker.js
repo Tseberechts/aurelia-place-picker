@@ -8,7 +8,7 @@ import {Configure} from './configure';
 @inject(Element, Configure, EventAggregator)
 
 export class AureliaPlacePicker {
-  @bindable location = {};
+  @bindable location;
   @bindable customClass;
 
   _scriptPromise = null;
@@ -44,6 +44,7 @@ export class AureliaPlacePicker {
   }
 
   initializeAutocomplete() {
+    this.location = this.location || {};
     let self = this;
     this._scriptPromise.then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.input);
